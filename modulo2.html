@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Curso – Inteligência Emocional | Módulo 2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --bg-soft: #1a1a1a;
+      --text: #e8f0f2;
+      --text-soft: #b0b0b0;
+      --highlight: #3aff8a;
+      --border-radius: 12px;
+      --transition: all 0.3s ease-in-out;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Russo One", sans-serif;
+      line-height: 1.6;
+    }
+    .banner {
+      position: relative;
+      background: var(--highlight-soft);
+      padding: 60px 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .banner img {
+      max-width: 300px;
+      border-radius: var(--border-radius);
+      transition: transform .3s;
+    }
+    .banner:hover img { transform: scale(1.05); }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      color: var(--highlight);
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    p {
+      text-align: center;
+      color: var(--text-soft);
+      margin-bottom: 30px;
+    }
+    .questionnaire {
+      background: var(--bg-soft);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 24px rgba(58,255,138,0.1);
+      margin-bottom: 30px;
+    }
+    fieldset {
+      border: none;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(58,255,138,0.1);
+    }
+    legend {
+      color: var(--text);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    .scale {
+      display: flex;
+      justify-content: space-around;
+    }
+    .scale-item input {
+      display: none;
+    }
+    .scale-item label {
+      padding: 8px 12px;
+      background: var(--bg);
+      color: var(--text-soft);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .scale-item input:checked + label {
+      background: var(--highlight);
+      color: var(--bg);
+    }
+    .btn-container {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .btn {
+      padding: 14px 32px;
+      background: var(--highlight);
+      color: var(--bg);
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: not-allowed;
+      opacity: 0.5;
+      transition: var(--transition);
+    }
+    .btn.enabled {
+      cursor: pointer;
+      opacity: 1;
+    }
+    /* Modal */
+    .modal-bg {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: var(--bg-soft);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      max-width: 500px;
+      text-align: center;
+    }
+    .modal h2 { color: var(--highlight); margin-bottom:12px; }
+    .modal p { color: var(--text-soft); margin-bottom:20px; }
+    .modal button {
+      padding:8px 16px;
+      border:none;
+      background: var(--highlight);
+      color: var(--bg);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANNER INTERATIVO -->
+  <div class="banner" id="openModal">
+    <img src="img/roda-inteligencia-emocional.png" alt="Roda da Inteligência Emocional">
+    <p>Clique para explorar os Pilares da Inteligência Emocional</p>
+  </div>
+
+  <!-- MODAL DESCRIÇÃO -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <h2>Pilares da Inteligência Emocional</h2>
+      <p><strong>1. Autoconsciência</strong>: reconhecer suas emoções.</p>
+      <p><strong>2. Autogestão</strong>: controlar respostas emocionais.</p>
+      <p><strong>3. Empatia</strong>: entender emoções dos outros.</p>
+      <p><strong>4. Habilidades sociais</strong>: gerir relacionamentos.</p>
+      <button id="closeModal">Fechar</button>
+    </div>
+  </div>
+
+  <main>
+    <h1>Introdução à Inteligência Emocional</h1>
+    <p>Aprenda a reconhecer e gerenciar suas emoções para melhorar relações.</p>
+
+    <!-- QUESTIONÁRIO INTERATIVO -->
+    <div class="questionnaire" id="quiz">
+      <fieldset>
+        <legend>1. Eu reconheço facilmente como me sinto em cada situação.</legend>
+        <div class="scale">
+          <div class="scale-item">
+            <input type="radio" id="q1r1" name="q1" value="1"><label for="q1r1">1</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q1r3" name="q1" value="3"><label for="q1r3">3</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q1r5" name="q1" value="5"><label for="q1r5">5</label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>2. Eu administro meu estado emocional sob pressão.</legend>
+        <div class="scale">
+          <div class="scale-item">
+            <input type="radio" id="q2r1" name="q2" value="1"><label for="q2r1">1</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q2r3" name="q2" value="3"><label for="q2r3">3</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q2r5" name="q2" value="5"><label for="q2r5">5</label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>3. Eu percebo como minhas emoções influenciam minhas decisões.</legend>
+        <div class="scale">
+          <div class="scale-item">
+            <input type="radio" id="q3r1" name="q3" value="1"><label for="q3r1">1</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q3r3" name="q3" value="3"><label for="q3r3">3</label>
+          </div>
+          <div class="scale-item">
+            <input type="radio" id="q3r5" name="q3" value="5"><label for="q3r5">5</label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <!-- BOTÃO AVANÇAR -->
+    <div class="btn-container">
+      <button class="btn" id="nextBtn">Avançar para Módulo 3</button>
+    </div>
+  </main>
+
+  <script>
+    // Modal
+    const openModal = document.getElementById('openModal');
+    const modalBg   = document.getElementById('modalBg');
+    const closeModal= document.getElementById('closeModal');
+    openModal.addEventListener('click', ()=> modalBg.style.display = 'flex');
+    closeModal.addEventListener('click', ()=> modalBg.style.display = 'none');
+
+    // Quiz & Avançar
+    const nextBtn = document.getElementById('nextBtn');
+    const fieldsets = document.querySelectorAll('.questionnaire fieldset');
+    function allAnswered() {
+      return [...fieldsets].every(fs =>
+        fs.querySelectorAll('input[type=radio]').length &&
+        [...fs.querySelectorAll('input[type=radio]')].some(r=>r.checked)
+      );
+    }
+    document.getElementById('quiz').addEventListener('change', ()=>{
+      if(allAnswered()) {
+        nextBtn.classList.add('enabled');
+        nextBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
