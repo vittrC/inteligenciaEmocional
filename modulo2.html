@@ -6,9 +6,9 @@
   <title>Módulo 2: Autocontrole Emocional</title>
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
   <style>
     :root {
       --bg: #0d0d0d;
@@ -28,7 +28,8 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      user-select: none; /* ignorar qualquer marcação de erro que aparecer aqui */
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     body {
@@ -36,11 +37,9 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 0;
       min-height: 100vh;
     }
 
-    /* ===== BANNER ===== */
     .banner {
       position: relative;
       color: var(--highlight);
@@ -56,68 +55,136 @@
       overflow: hidden;
       box-shadow: var(--box-shadow);
     }
-    h1 { 
-      text-align: center; 
-      color: #3aff8a;
-      margin-bottom: 10px;
+
+    h1 {
+      text-align: center;
+      color: var(--highlight);
+      margin-bottom: 30px;
     }
+
+    .intro p { 
+      text-align: center;
+      line-height: 1.5; 
+      max-width: 800px; 
+      margin: 20px auto; 
+      color: #b0b0b0; 
+    }
+
     .user-info {
       text-align: center;
       margin-bottom: 30px;
     }
+
     .user-name {
-      color: #3aff8a;
+      color: var(--highlight);
       font-size: 1.2em;
     }
-    
+
+    .fundamentos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 40px 0;
+    }
+    .fundamento {
+      text-align: center;
+      cursor: pointer;
+    }
+    .fundamento span {
+      font-size: 60px;
+      color: #3aff8a;
+      transition: 0.3s;
+    }
+    .fundamento:hover span {
+      transform: scale(1.2);
+    }
+    .descricao {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      display: none;
+    }
     .questionnaire {
-  background: var(--bg-soft);
-  padding: 60px 40px; 
-  border-radius: var(--border-radius);
-  margin: 60px auto;
-  max-width: 800px;
-  box-shadow: var(--box-shadow);
-  border: 1px solid rgba(58, 255, 138, 0.1);
-  overflow: hidden; 
-}
+      background: var(--bg-soft);
+      padding: 60px 40px;
+      border-radius: var(--border-radius);
+      margin: 60px auto;
+      max-width: 800px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(58, 255, 138, 0.1);
+      overflow: hidden;
+    }
 
     fieldset {
-  border: none;
-  margin: 0 0 45px 0; 
-  padding: 0 0 30px 0;
-  border-bottom: 1px solid rgba(58, 255, 138, 0.1);
-}
-
-    legend { 
-      margin-bottom: 10px; 
-      font-size: 1.1rem; 
-      text-align: center;
-      color: #e8f0f2;
+      border: none;
+      margin: 0 0 45px 0;
+      padding: 0 0 30px 0;
+      border-bottom: 1px solid rgba(58, 255, 138, 0.1);
     }
+
+    fieldset:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    legend {
+      margin: 0 auto 20px;
+      padding: 0;
+      width: 100%;
+      font-size: 1.2rem;
+      color: var(--text);
+      text-align: center;
+    }
+
     .scale {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      gap: 10px;
       flex-wrap: wrap;
     }
-    .scale label {
+
+    .scale-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      cursor: pointer;
-      color: #b0b0b0;
-      margin: 5px;
+      flex: 1;
       min-width: 80px;
     }
+
     .scale input[type="radio"] {
-      margin-bottom: 6px;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--text-soft);
+      border-radius: 50%;
       cursor: pointer;
+      position: relative;
+      transition: var(--transition);
     }
+
+    .scale input[type="radio"]:checked {
+      border-color: var(--highlight);
+      background-color: var(--highlight-soft);
+    }
+
+    .scale label {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      text-align: center;
+    }
+
     .btn {
       display: block;
       margin: 40px auto;
-      padding: 12px 30px;
-      background: #3aff8a;
-      color: #0d0d0d;
+      padding: 14px 32px;
+      background: var(--highlight);
+      color: var(--bg);
       border: none;
       border-radius: 30px;
       font-size: 1rem;
@@ -125,10 +192,12 @@
       font-weight: bold;
       transition: all 0.3s ease;
     }
+
     .btn:hover {
-      background: #2ce278;
+      background: var(--button-hover);
       transform: scale(1.05);
     }
+
     .logout-btn {
       position: absolute;
       top: 20px;
@@ -141,15 +210,9 @@
       cursor: pointer;
       font-family: "Lilita One", cursive;
     }
+
     .logout-btn:hover {
       background: #a81a1a;
-    }
-    .success-message {
-      color: #3aff8a;
-      text-align: center;
-      margin-top: 15px;
-      font-size: 0.9em;
-      display: none;
     }
   </style>
 </head>
@@ -158,53 +221,255 @@
     <span>CURSO DE INTELIGÊNCIA EMOCIONAL</span>
     <button class="logout-btn" id="logoutBtn">SAIR</button>
   </div>
-  
+
   <h1>Módulo 2: Autocontrole Emocional</h1>
-  
+
   <div class="user-info">
     <span>Bem-vindo, </span>
     <span class="user-name" id="userName"></span>
   </div>
 
+    <div class="intro">
+<p>
+  Neste módulo, você aprofundará seus conhecimentos sobre como aplicar a inteligência emocional no cotidiano. <br><br>
+  A inteligência emocional nos ajuda a lidar com desafios interpessoais, controlar impulsos, tomar decisões ponderadas e manter a calma em momentos de tensão. <br><br>
+  Quando aplicamos a IE no trabalho, cultivamos empatia e liderança. Em casa, promovemos escuta e respeito. <br><br>
+  Em situações de conflito, pausamos, refletimos e escolhemos responder em vez de reagir. <br><br>
+  O domínio emocional se desenvolve com prática, autoconhecimento e disposição para mudar. <br><br>
+  Vamos explorar agora os fundamentos que sustentam essa habilidade poderosa. <br><br>
+</p>
+</div>
+
+  <!-- Ícones dos fundamentos -->
+  <div class="fundamentos">
+    <div class="fundamento" onclick="mostrarDescricao(0)">
+      <span class="material-symbols-outlined">psychology</span>
+      <p>Autoconsciência</p>
+    </div>
+    <div class="fundamento" onclick="mostrarDescricao(1)">
+      <span class="material-symbols-outlined">self_improvement</span>
+      <p>Autocontrole</p>
+    </div>
+    <div class="fundamento" onclick="mostrarDescricao(2)">
+      <span class="material-symbols-outlined">favorite</span>
+      <p>Empatia</p>
+    </div>
+    <div class="fundamento" onclick="mostrarDescricao(3)">
+      <span class="material-symbols-outlined">groups</span>
+      <p>Habilidades sociais</p>
+    </div>
+  </div>
+
+  <div id="descricao" class="descricao"></div>
+
   <div class="questionnaire">
     <form id="form-mod2">
-      <fieldset>
-        <legend>1. Eu consigo me acalmar quando estou irritado.</legend>
-        <div class="scale">
-          <label><input type="radio" name="q1" value="1" required>Nunca</label>
-          <label><input type="radio" name="q1" value="2">Raramente</label>
-          <label><input type="radio" name="q1" value="3">Às vezes</label>
-          <label><input type="radio" name="q1" value="4">Frequentemente</label>
-          <label><input type="radio" name="q1" value="5">Sempre</label>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>2. Em situações estressantes, penso antes de agir.</legend>
-        <div class="scale">
-          <label><input type="radio" name="q2" value="1" required>Nunca</label>
-          <label><input type="radio" name="q2" value="2">Raramente</label>
-          <label><input type="radio" name="q2" value="3">Às vezes</label>
-          <label><input type="radio" name="q2" value="4">Frequentemente</label>
-          <label><input type="radio" name="q2" value="5">Sempre</label>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>3. Consigo controlar impulsos mesmo quando estou sob pressão.</legend>
-        <div class="scale">
-          <label><input type="radio" name="q3" value="1" required>Nunca</label>
-          <label><input type="radio" name="q3" value="2">Raramente</label>
-          <label><input type="radio" name="q3" value="3">Às vezes</label>
-          <label><input type="radio" name="q3" value="4">Frequentemente</label>
-          <label><input type="radio" name="q3" value="5">Sempre</label>
-        </div>
-      </fieldset>
-      <button class="btn" type="submit">Salvar Respostas</button>
-      <div class="success-message" id="successMessage">Respostas salvas com sucesso!</div>
+      <!-- Pergunta 1 -->
+<fieldset>
+  <legend id="q1">1. Eu consigo controlar meus impulsos mesmo quando estou sob pressão.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q1">
+    <label class="scale-item">
+      <input type="radio" name="q1" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q1" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q1" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q1" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q1" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 2 -->
+<fieldset>
+  <legend id="q2">2. Eu penso antes de reagir em momentos de raiva.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q2">
+    <label class="scale-item">
+      <input type="radio" name="q2" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q2" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q2" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q2" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q2" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 3 -->
+<fieldset>
+  <legend id="q3">3. Eu consigo manter a calma mesmo quando estou frustrado(a).</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q3">
+    <label class="scale-item">
+      <input type="radio" name="q3" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q3" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q3" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q3" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q3" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 4 -->
+<fieldset>
+  <legend id="q4">4. Eu consigo me recuperar emocionalmente após uma situação difícil.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q4">
+    <label class="scale-item">
+      <input type="radio" name="q4" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q4" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q4" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q4" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q4" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 5 -->
+<fieldset>
+  <legend id="q5">5. Eu lido bem com críticas sem reagir impulsivamente.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q5">
+    <label class="scale-item">
+      <input type="radio" name="q5" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q5" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q5" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q5" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q5" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 6 -->
+<fieldset>
+  <legend id="q6">6. Eu consigo evitar reações exageradas em situações de estresse.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q6">
+    <label class="scale-item">
+      <input type="radio" name="q6" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q6" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q6" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q6" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q6" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
+
+<!-- Pergunta 7 -->
+<fieldset>
+  <legend id="q7">7. Eu consigo manter o foco mesmo em situações emocionalmente desafiadoras.</legend>
+  <div class="scale" role="radiogroup" aria-labelledby="q7">
+    <label class="scale-item">
+      <input type="radio" name="q7" value="1" />
+      <span>Nunca</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q7" value="2" />
+      <span>Raramente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q7" value="3" />
+      <span>Neutro</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q7" value="4" />
+      <span>Frequentemente</span>
+    </label>
+    <label class="scale-item">
+      <input type="radio" name="q7" value="5" />
+      <span>Sempre</span>
+    </label>
+  </div>
+</fieldset>
     </form>
+    <button class="btn" type="submit" form="form-mod2">Salvar Respostas</button>
   </div>
 
   <script>
-    // Configuração do Firebase
+
+    const textos = [
+      "Autoconsciência é a capacidade de reconhecer suas emoções à medida que elas ocorrem. Ela é a base da IE.",
+      "Autocontrole é o domínio das emoções impulsivas e a habilidade de canalizá-las de forma saudável.",
+      "Empatia é a habilidade de entender os sentimentos dos outros e responder de forma adequada.",
+      "Habilidades sociais envolvem comunicação eficaz, colaboração e gestão de relacionamentos."
+    ];
+    function mostrarDescricao(index) {
+      const desc = document.getElementById('descricao');
+      desc.style.display = 'block';
+      desc.innerHTML = '<p>' + textos[index] + '</p>';
+    }
+
     const firebaseConfig = {
       apiKey: "AIzaSyAVZ-dvyJuGFF4fEHGjS-TrhzBmBslVwNs",
       authDomain: "curso-3-inteligencia-emocional.firebaseapp.com",
@@ -214,86 +479,65 @@
       appId: "1:105031303963:web:0ecdcddc91fbb0af69c9be"
     };
 
-    // Inicialização do Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Elementos da página
-    const userNameEl = document.getElementById('userName');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const form = document.getElementById('form-mod2');
-    const successMessage = document.getElementById('successMessage');
-    const questionnaireEl = document.querySelector('.questionnaire');
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = localStorage.getItem("usuario");
+      const userNameEl = document.getElementById("userName");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const form = document.getElementById("form-mod2");
 
-    // Verifica usuário logado
-    const user = localStorage.getItem('usuario');
+      if (!user) {
+        userNameEl.textContent = "Visitante";
+        document.querySelector(".questionnaire").innerHTML = `
+          <p style="text-align: center; color: #ff3a3a;">
+            Você precisa fazer login para acessar este conteúdo. Redirecionando...
+          </p>
+        `;
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 3000);
+        return;
+      }
 
-    if (!user) {
-      // Redireciona se não estiver logado
-      userNameEl.textContent = "Visitante";
-      questionnaireEl.innerHTML = `
-        <p style="text-align: center; color: #ff3a3a;">
-          Você precisa fazer login para acessar este conteúdo. Redirecionando...
-        </p>
-      `;
-      setTimeout(() => {
-        window.location.href = "login.html";
-      }, 3000);
-    } else {
-      // Exibe o nome do usuário
       userNameEl.textContent = user;
-      
-      // Carrega respostas anteriores
+
       db.collection("usuarios").doc(user).collection("modulos").doc("modulo2").get()
         .then(doc => {
           if (doc.exists) {
             const respostas = doc.data();
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 7; i++) {
               const radio = document.querySelector(`input[name="q${i}"][value="${respostas[`q${i}`]}"]`);
               if (radio) radio.checked = true;
             }
           }
-        })
-        .catch(err => {
-          console.error("Erro ao carregar respostas:", err);
         });
 
-      // Configura o logout
-      logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('usuario');
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("usuario");
         window.location.href = "login.html";
       });
 
-      // Envio do formulário
-      form.addEventListener('submit', function(e) {
+      form.addEventListener("submit", function(e) {
         e.preventDefault();
-        
-        const respostas = {
-          q1: this.q1.value,
-          q2: this.q2.value,
-          q3: this.q3.value,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        };
 
-        // Valida se todas questões foram respondidas
-        if (!respostas.q1 || !respostas.q2 || !respostas.q3) {
-          alert("Por favor, responda todas as questões!");
-          return;
+        const respostas = {};
+        for (let i = 1; i <= 7; i++) {
+          const val = this[`q${i}`]?.value;
+          if (!val) {
+            alert("Por favor, responda todas as questões!");
+            return;
+          }
+          respostas[`q${i}`] = val;
         }
+        respostas.timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-        // Salva no Firestore
         db.collection("usuarios").doc(user).collection("modulos").doc("modulo2").set(respostas)
-          .then(() => {
-            successMessage.style.display = 'block';
-            setTimeout(() => {
-              successMessage.style.display = 'none';
-            }, 3000);
-          })
-          .catch(err => {
-            alert("Erro ao salvar respostas: " + err.message);
-          });
+          .then(() => alert("Respostas salvas com sucesso!"))
+          .catch(err => alert("Erro ao salvar respostas: " + err.message));
       });
-    }
+    });
   </script>
 </body>
 </html>
