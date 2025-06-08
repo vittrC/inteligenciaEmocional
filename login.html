@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Inteligência Emocional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #e8f0f2;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h2 {
+      color: #3aff8a;
+    }
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 250px;
+      border: none;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: white;
+    }
+    button {
+      padding: 10px 20px;
+      background: #3aff8a;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .msg {
+      margin-top: 20px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login do Curso</h2>
+  <input type="text" id="nome" placeholder="Nome de usuário" /><br>
+  <input type="password" id="senha" placeholder="Senha" /><br>
+  <button onclick="logar()">Entrar</button>
+  <div class="msg" id="msg"></div>
+
+  <script>
+     // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVZ-dvyJuGFF4fEHGjS-TrhzBmBslVwNs",
+      authDomain: "curso-3-inteligencia-emocional.firebaseapp.com",
+      projectId: "curso-3-inteligencia-emocional",
+      storageBucket: "curso-3-inteligencia-emocional.appspot.com",
+      messagingSenderId: "105031303963",
+      appId: "1:105031303963:web:0ecdcddc91fbb0af69c9be"
+    };
+
+    // Inicialização do Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    
+    async function logar() {
+      const nomeInput = document.getElementById("nome");
+      const senhaInput = document.getElementById("senha");
+      const msg = document.getElementById("msg");
+
+      // Limpa mensagens anteriores
+      msg.innerText = "";
+      msg.style.color = "red";
+
+      if (!nomeInput.value.trim() || !senhaInput.value) {
+        msg.innerText = "Preencha todos os campos.";
+        return;
+      }
+
+      const nomeUsuario = nomeInput.value.trim();
+      const senha = senhaInput.value;
+
+      try {
+        const usuariosRef = db.collection("usuarios");
+        const snapshot = await usuariosRef
+          .where("nome", "==", nomeUsuario)
+          .limit(1)
+          .get();
+
+        if (snapshot.empty) {
+          msg.innerText = "Usuário não encontrado.";
+          return;
+        }
+
+        const usuarioDoc = snapshot.docs[0];
+        const usuarioData = usuarioDoc.data();
+
+        const senhaCorreta = usuarioData.Senha || usuarioData.senha;
+        
+        if (senhaCorreta === senha) {
+          localStorage.setItem("usuario", usuarioData.nome);
+          msg.style.color = "lightgreen";
+          msg.innerText = "Login bem-sucedido! Redirecionando...";
+          
+          setTimeout(() => {
+            window.location.href = "modulo2.html";
+          }, 1000);
+        } else {
+          msg.innerText = "Senha incorreta.";
+        }
+      } catch (error) {
+        msg.innerText = "Erro ao acessar o banco de dados.";
+        console.error("Erro no Firestore:", error);
+      }
+    }
+
+    // Configuração dos event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Corrige o erro "Botão não encontrado"
+      const loginBtn = document.getElementById('loginBtn');
+      const senhaInput = document.getElementById('senha');
+      
+      if (loginBtn && senhaInput) {
+        loginBtn.addEventListener('click', logar);
+        senhaInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') logar();
+        });
+      } else {
+        console.error('Elementos não encontrados! Verifique os IDs no HTML.');
+      }
+    });
+</script>
+</body>
+</html>
