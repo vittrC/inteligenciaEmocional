@@ -80,12 +80,18 @@
       cursor: pointer;
     }
     .fundamento span {
-      font-size: 60px;
-      color: #3aff8a;
-      transition: 0.3s;
+      font-size: 50px;
+      color: var(--highlight);
+      background: var(--highlight-soft);
+      padding: 15px;
+      border-radius: 50%;
+      transition: var(--transition);
     }
     .fundamento:hover span {
-      transform: scale(1.2);
+      transform: scale(1.1);
+      background: var(--highlight);
+      color: var(--bg);
+      border-radius: 30px;
     }
     .descricao {
       max-width: 700px;

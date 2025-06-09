@@ -29,7 +29,6 @@
       min-height: 100vh;
     }
 
-    /* ===== BANNER ===== */
     .banner {
       position: relative;
       color: var(--highlight);
@@ -46,7 +45,6 @@
       box-shadow: var(--box-shadow);
     }
 
-    /* ===== MAIN CONTENT ===== */
     main {
       max-width: 900px;
       margin: 0 auto 60px;
@@ -79,6 +77,7 @@
       font-size: 1.8rem;
       margin: 50px 0 1em;
       text-align: center;
+      margin-top: 25px;
     }
 
     p {
@@ -114,7 +113,6 @@
       outline-color: var(--highlight);
     }
 
-    /* ===== SLIDER ===== */
     .slider-container {
       position: relative;
       max-width: 800px;
@@ -191,18 +189,18 @@
 
    .questionnaire {
   background: var(--bg-soft);
-  padding: 60px 40px; /* ↑ aumenta espaço interno vertical */
+  padding: 60px 40px; 
   border-radius: var(--border-radius);
   margin: 60px auto;
   max-width: 800px;
   box-shadow: var(--box-shadow);
   border: 1px solid rgba(58, 255, 138, 0.1);
-  overflow: hidden; /* se houver algo flutuante */
+  overflow: hidden; 
 }
 
     fieldset {
   border: none;
-  margin: 0 0 45px 0; /* ↑ aumenta espaço entre perguntas */
+  margin: 0 0 45px 0; 
   padding: 0 0 30px 0;
   border-bottom: 1px solid rgba(58, 255, 138, 0.1);
 }
@@ -277,7 +275,6 @@
       color: var(--highlight);
     }
 
-    /* ===== BUTTON ===== */
     .btn-container {
       text-align: center;
       margin: 60px 0;
@@ -326,7 +323,6 @@
       transform: scale(1);
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .banner {
         font-size: 2rem;
@@ -410,3 +406,56 @@
       color: #3aff8a;
       font-size: 1.2em;
     }
+
+.emocao-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.icone-container .material-symbols-outlined {
+  font-size: 50px;
+  color: var(--highlight);
+  background: var(--highlight-soft);
+  padding: 15px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.icone-container .material-symbols-outlined:hover {
+  transform: scale(0.9);
+      background: var(--highlight);
+      color: var(--bg);
+      border-radius: 30px;
+}
+
+main p {
+  text-align: center;
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+blockquote {
+  font-style: italic;
+  color: var(--text-soft);
+  border-left: 3px solid var(--highlight);
+  padding-left: 20px;
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+blockquote p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+blockquote footer {
+  text-align: right;
+  font-size: 0.9rem;
+}
