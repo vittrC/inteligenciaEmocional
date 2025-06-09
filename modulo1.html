@@ -264,16 +264,14 @@
   </div>
 </fieldset>
 
-      </form>
+      <div class="btn-container">
+    <button type="submit" id="btn-avancar" class="btn" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
+      Avançar para o Módulo 2
+    </button>
+  </div>
+</form>
     </div>
 
-
-
-   <div class="btn-container">
-  <a href="modulo2.html" id="btn-avancar" class="btn" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
-    Avançar para o Módulo 2
-  </a>
-</div>
 
   </main>
 
@@ -329,8 +327,7 @@
       // Logout
       logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('usuario');
-        window.location.href = "login.html";
-      });
+        window.location.href = "modulo2.html"      });
 
       // Envio do formulário
       form.addEventListener('submit', function(e) {
@@ -347,7 +344,9 @@
         respostas.timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
         db.collection("usuarios").doc(user).collection("modulos").doc("modulo1").set(respostas)
-          .then(() => alert("Respostas salvas com sucesso!"))
+          .then(() => {
+            window.location.href = "modulo2.html";
+      })
           .catch(err => alert("Erro ao salvar respostas: " + err.message));
       });
 
