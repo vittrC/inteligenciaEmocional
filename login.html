@@ -9,14 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"/>
   <style>
     * {
-
-    -webkit-user-select: none;
-    user-select: none;
-
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     body {
-      background: #0d0d0d;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
       color: #e8f0f2;
       font-family: 'Arial', sans-serif;
       display: flex;
@@ -24,11 +22,41 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      overflow: hidden;
     }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(rgba(58, 255, 138, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58, 255, 138, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+
     h2 {
       color: #3aff8a;
       margin-bottom: 20px;
+      text-shadow: 0 0 5px rgba(58, 255, 138, 0.3);
     }
+
+    .login-container {
+      background: rgba(26, 26, 26, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      border: 2px solid rgba(13, 163, 73, 0.336);
+      box-shadow: 0 0 20px rgba(58, 255, 138, 0.1);
+      width: 350px;
+      text-align: center;
+      font-family: 'Russo One';
+      letter-spacing: 3px;
+    }
+
     input {
       padding: 12px;
       margin: 10px 0;
@@ -60,47 +88,33 @@
       min-height: 20px;
       text-align: center;
     }
-    .login-container {
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 12px;
-      border: 2px solid rgba(13, 163, 73, 0.336);
-      box-shadow: 0 8px 24px rgba(58, 255, 138, 0.1);
-      width: 350px;
-      text-align: center;
-      font-family: russo one ;
-      letter-spacing: 3px;
-    }
-
     .caixa {
       border: 2px solid rgba(13, 163, 73, 0.952);
     }
-
     .logo {
-    width: 160px;       
-    height: auto;       
-    display: block;     
-    margin: 0 auto;    
-}
-
+      width: 160px;       
+      height: auto;       
+      display: block;     
+      margin: 0 auto;  
+      filter: drop-shadow(15px 8px 2px #08b94c33);
+    }
   </style>
 </head>
 <body>
-
   <div>
     <img class="logo" alt="logo" src="img/logo.png"> 
   </div>
 
   <div class="login-container">
-    <h2>Login do Curso</h2>
-    <input class="caixa"  type="text" id="nome" placeholder="Nome de usuário" /><br>
-    <input  class="caixa" type="password" id="senha" placeholder="Senha" /><br>
+    <h2> FAÇA LOGIN </h2>
+    <input class="caixa" type="text" id="nome" placeholder="Nome de usuário" /><br>
+    <input class="caixa" type="password" id="senha" placeholder="Senha" /><br>
     <button id="btn-login">Entrar</button>
     <div class="msg" id="msg"></div>
   </div>
 
+  <!-- Seu script original (mantido igual) -->
   <script>
-    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAVZ-dvyJuGFF4fEHGjS-TrhzBmBslVwNs",
       authDomain: "curso-3-inteligencia-emocional.firebaseapp.com",
@@ -110,7 +124,6 @@
       appId: "1:105031303963:web:0ecdcddc91fbb0af69c9be"
     };
 
-    // Inicialização do Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -182,7 +195,6 @@
       }
     }
 
-    // Configuração dos event listeners
     document.addEventListener('DOMContentLoaded', () => {
       const btnLogin = document.getElementById('btn-login');
       const senhaInput = document.getElementById('senha');
